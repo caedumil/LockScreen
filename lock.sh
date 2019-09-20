@@ -35,7 +35,7 @@ if [[ -f ${icon} ]]; then
 fi
 
 # Lock screen
-i3lock --no-unlock-indicator --image "${sshot}"
+i3lock --ignore-empty-password --no-unlock-indicator --image "${sshot}"
 
 # Cleanup
 rm "${sshot}"
