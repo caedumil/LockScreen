@@ -5,7 +5,7 @@ Use a pixelated screenshot as background.
 
 ## Requires
 
-* maim
+* scrot
 * imagemagick
 * i3lock
 

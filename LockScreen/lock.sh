@@ -11,7 +11,7 @@ sshot="$(mktemp --suffix=.png)"
 [[ -n ${1} ]] && icon="${1}"
 
 # Take screenshot
-maim "${sshot}"
+scrot --overwrite "${sshot}"
 
 # Pixelate image
 convert "${sshot}" -scale 10% -scale 1000% "${sshot}"
