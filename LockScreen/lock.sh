@@ -8,7 +8,7 @@
 set -e
 
 sshot="$(mktemp --suffix=.png)"
-[[ -n ${1} ]] && icon="${1}"
+[[ -n ${1} ]] && icon="$(realpath ${1})"
 
 # Take screenshot
 scrot --overwrite "${sshot}"
@@ -17,7 +17,7 @@ scrot --overwrite "${sshot}"
 convert "${sshot}" -scale 10% -scale 1000% "${sshot}"
 
 # Add lock icon to screenshot
-if [[ -e ${icon} ]]; then
+if [[ -f ${icon} ]]; then
     convert "${sshot}" "${icon}" -gravity center -composite -matte "${sshot}"
 fi
 
