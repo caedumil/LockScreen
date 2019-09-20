@@ -9,8 +9,7 @@ Use a pixelated screenshot as background.
 * imagemagick
 * i3lock
 
-It is provided a systemd service file to lock the screen when
-suspending/hibernating.
+A systemd service file is provided to lock the screen on suspend/hibernate.
 
 ## Usage
 
