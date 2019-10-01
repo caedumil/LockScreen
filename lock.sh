@@ -30,8 +30,28 @@ scrot --overwrite "${sshot}"
 convert "${sshot}" -scale 10% -scale 1000% "${sshot}"
 
 # Add lock icon to screenshot
-if [[ -f ${icon} ]]; then
-    convert "${sshot}" "${icon}" -gravity center -composite -matte "${sshot}"
+if [[ -f "${icon}" ]]; then
+    # placement x/y
+    PX=0
+    PY=0
+    # lockscreen image info
+    R=$(file "${icon}" | grep -o '[0-9]* x [0-9]*')
+    RX=$(echo $R | cut -d' ' -f 1)
+    RY=$(echo $R | cut -d' ' -f 3)
+
+    SR=$(xrandr --query | grep -E -o -e '[0-9]+x[0-9]+\+[0-9]+\+[0-9]')
+    for RES in $SR; do
+        # monitor position/offset
+        SRX=$(echo $RES | cut -d'x' -f 1)                   # x pos
+        SRY=$(echo $RES | cut -d'x' -f 2 | cut -d'+' -f 1)  # y pos
+        SROX=$(echo $RES | cut -d'x' -f 2 | cut -d'+' -f 2) # x offset
+        SROY=$(echo $RES | cut -d'x' -f 2 | cut -d'+' -f 3) # y offset
+        PX=$(($SROX + $SRX/2 - $RX/2))
+        PY=$(($SROY + $SRY/2 - $RY/2))
+
+        # add icon
+        convert "${sshot}" "${icon}" -geometry +$PX+$PY -composite -matte "${sshot}"
+    done
 fi
 
 # Lock screen
